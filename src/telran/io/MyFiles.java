@@ -11,7 +11,6 @@ public class MyFiles {
 			int pLength = actPath.getNameCount();
 
 			if (!Files.isDirectory(actPath) || maxDepth < 0) {
-				System.out.println(1);
 				throw new IllegalArgumentException();
 			}
 				
