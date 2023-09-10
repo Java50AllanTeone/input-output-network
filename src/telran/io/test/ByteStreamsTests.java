@@ -3,7 +3,9 @@ package telran.io.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.InputStream;
 
@@ -30,7 +32,7 @@ class ByteStreamsTests {
 	
 	@Test
 	@Order(2)
-	void fileInputStream() throws Exception {
+	void fileInputStream() throws FileNotFoundException, IOException  {
 		try(InputStream input = new FileInputStream(FILE_NAME)) {
 			int length = input.available();
 			byte[] buffer = new byte[length];
