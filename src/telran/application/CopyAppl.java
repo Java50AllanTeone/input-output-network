@@ -1,4 +1,4 @@
-package telran.io.test;
+package telran.application;
 
 import java.io.*;
 import java.nio.file.*;
@@ -33,7 +33,7 @@ public class CopyAppl {
 			long bytes = 0;
 			byte[] buffer = new byte[BUFFER_LENGTH];
 			
-			while ((counter = input.read(buffer)) > 0) {
+			while ((counter = input.read( buffer)) > 0) {
 				output.write(buffer, 0, counter);
 				bytes += counter;
 			}
