@@ -1,11 +1,14 @@
 package telran.io;
-
+import java.io.*;
 public class TransferToCopy implements CopyFile {
 
 	@Override
-	public void copyFiles(String sourceFile, String destinationFile) {
-		// TODO Auto-generated method stub
-		
+	public void copy(String pathToSource, String pathToDestination)throws Exception {
+		try(InputStream input = new FileInputStream(pathToSource);
+			OutputStream output = new FileOutputStream(pathToDestination)) {
+			input.transferTo(output);
+		}
+
 	}
 
 }

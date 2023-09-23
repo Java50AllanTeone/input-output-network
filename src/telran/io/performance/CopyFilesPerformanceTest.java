@@ -4,22 +4,25 @@ import telran.io.CopyFile;
 import telran.performance.PerformanceTest;
 
 public class CopyFilesPerformanceTest extends PerformanceTest {
-	String sourceFile;
-	String destinationFile;
+
+	String pathToSource;
+	String pathToDestination;
 	CopyFile copyFile;
-	
-	
-	public CopyFilesPerformanceTest(String testName, String sourceFile, String destinationFile, CopyFile copyFile) {
-		super();
-		this.sourceFile = sourceFile;
-		this.destinationFile = destinationFile;
+	public CopyFilesPerformanceTest(String testName, int nRuns, String pathToSource, String pathToDestination,
+									CopyFile copyFile) {
+		super(testName, nRuns);
+		this.pathToSource = pathToSource;
+		this.pathToDestination = pathToDestination;
 		this.copyFile = copyFile;
 	}
-	
+	@Override
 	protected void runTest() {
-		
+		try {
+			copyFile.copy(pathToSource, pathToDestination);
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+
 	}
-	
-	
 
 }
