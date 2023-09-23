@@ -73,7 +73,7 @@ public class CompanyImpl implements Company {
                 .collect(Collectors.groupingBy(e -> e.salary() / interval, Collectors.counting()));
         return mapIntervalNumbers.entrySet().stream()
                 .map(e -> new SalaryDistribution(e.getKey() * interval, e.getKey() * interval + interval, e.getValue().intValue()))
-                .sorted((sd1, sd2) -> Integer.compare(sd1.min(), sd2.min())).toList();
+                .sorted(Comparator.comparingInt(SalaryDistribution::min)).toList();
     }
 
     @Override
@@ -99,6 +99,7 @@ public class CompanyImpl implements Company {
 
         return (int)ChronoUnit.YEARS.between(birthDate, LocalDate.now());
     }
+
 
 
     @Override

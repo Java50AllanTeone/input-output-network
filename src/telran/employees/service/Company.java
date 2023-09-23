@@ -16,7 +16,7 @@ public interface Company {
         //if there is no file it just means that application doen't have any saved data, that is no exception should be thrown
         //all possible exceptions should be propagated as a RuntimeException
         if(Files.exists(Path.of(dataFile))) {
-            try(ObjectInputStream stream = new ObjectInputStream(new FileInputStream(dataFile))) {
+            try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(dataFile))) {
                 List<Employee> employeesRestore = (List<Employee>) stream.readObject();
                 employeesRestore.forEach(e -> addEmployee(e));
             }catch(Exception e) {

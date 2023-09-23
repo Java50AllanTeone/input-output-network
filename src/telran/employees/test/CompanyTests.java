@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 import org.junit.jupiter.api.*;
@@ -62,7 +63,7 @@ class CompanyTests {
         Employee[] expected = {empl2, empl3, empl4, empl5};
         Employee[]actual = company.getEmployees()
                 .toArray(Employee[]::new);
-        Arrays.sort(actual, (e1, e2) -> Long.compare(e1.id(), e2.id()));
+        Arrays.sort(actual, Comparator.comparingLong(Employee::id));
         assertArrayEquals(expected, actual);
     }
 
@@ -76,7 +77,7 @@ class CompanyTests {
     void testGetEmployees() {
         Employee[]actual = company.getEmployees()
                 .toArray(Employee[]::new);
-        Arrays.sort(actual, (e1, e2) -> Long.compare(e1.id(), e2.id()));
+        Arrays.sort(actual, Comparator.comparingLong(Employee::id));
         assertArrayEquals(employees, actual);
     }
     @Test
@@ -86,7 +87,7 @@ class CompanyTests {
         newCompany.restore(TEST_DATA);
         Employee[]actual = newCompany.getEmployees()
                 .toArray(Employee[]::new);
-        Arrays.sort(actual, (e1, e2) -> Long.compare(e1.id(), e2.id()));
+        Arrays.sort(actual, Comparator.comparingLong(Employee::id));
         assertArrayEquals(employees, actual);
 
     }
