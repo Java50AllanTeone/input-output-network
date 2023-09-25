@@ -116,7 +116,7 @@ public class CompanyImpl implements Company {
 
     @Override
     public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
-        refreshAg+e();
+        refreshAge();
         return employeesAge
                 .subMap(ageFrom, ageTo)
                 .values()
