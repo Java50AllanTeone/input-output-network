@@ -115,6 +115,8 @@ class CompanyTests {
     @Test
     void testGetEmployeesByDepartment() {
         //TODO
+        System.out.println(LocalDate.now().isBefore(LocalDate.now()));
+
 
     }
 

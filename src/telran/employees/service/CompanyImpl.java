@@ -3,84 +3,56 @@ package telran.employees.service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import telran.employees.dto.*;
 
-public class CompanyImpl<T> implements Company {
+public class CompanyImpl implements Company {
     HashMap<Long, Employee> employees = new HashMap<>();
     HashMap<String, List<Employee>> employeesDepartment = new HashMap<>();
     TreeMap<Integer, List<Employee>> employeesAge = new TreeMap<>();
     TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>();
 
+    LocalDate lastAgeRefresh = LocalDate.now();
+
     @Override
     public boolean addEmployee(Employee empl) {
         boolean res = employees.putIfAbsent(empl.id(), empl) == null;
         if (res) {
-            addEmployeesAge(empl);
-            addEmployeesDepartment(empl);
-            addEmployeesSalary(empl);
+            addToIndexMap(empl, employeesAge, e -> getAge(e.birthDate()));
+            addToIndexMap(empl, employeesDepartment, Employee::department);
+            addToIndexMap(empl, employeesSalary, Employee::salary);
         }
-
         return res;
     }
 
-    private void addEmployeesAge(Employee empl) {
-        int age = getAge(empl.birthDate());
-        employeesAge.computeIfAbsent(age, k -> new LinkedList<>()).add(empl);
+    private <T> void addToIndexMap(Employee empl, Map<T, List<Employee>> indexMap, Function<Employee, T> keyFn) {
+        T key = keyFn.apply(empl);
+        indexMap.computeIfAbsent(key, k -> new LinkedList<>()).add(empl);
     }
 
-    private void addEmployeesDepartment(Employee empl) {
-        String department = empl.department();
-        employeesDepartment.computeIfAbsent(department, k -> new LinkedList<>()).add(empl);
-    }
-
-    private void addEmployeesSalary(Employee empl) {
-        int salary = empl.salary();
-        employeesSalary.computeIfAbsent(salary, k -> new LinkedList<>()).add(empl);
-    }
 
     @Override
     public Employee removeEmployee(long id) {
         Employee empl = employees.remove(id);
         if(empl != null) {
-            removeEmployeeAge(empl);
-            removeEmployeeDepartment(empl);
-            removeEmployeeSalary(empl);
-
+            removeFromIndexMap(empl, employeesAge, e -> getAge(e.birthDate()));
+            removeFromIndexMap(empl, employeesDepartment, Employee::department);
+            removeFromIndexMap(empl, employeesSalary, Employee::salary);
         }
-
         return empl;
     }
 
-
-    private void removeEmployeeAge(Employee empl) {
-        int age = getAge(empl.birthDate());
-        List<Employee> list = employeesAge.get(age);
+    private <T> void removeFromIndexMap(Employee empl, Map<T, List<Employee>> indexMap, Function<Employee, T> keyFn) {
+        T key = keyFn.apply(empl);
+        List<Employee> list = indexMap.get(key);
         list.remove(empl);
+
         if (list.isEmpty()) {
-            employeesAge.remove(age);
+            indexMap.remove(key);
         }
     }
 
-
-
-    private void removeEmployeeDepartment(Employee empl) {
-        String department = empl.department();
-        List<Employee> list = employeesDepartment.get(department);
-        list.remove(empl);
-        if (list.isEmpty()) {
-            employeesDepartment.remove(department);
-        }
-    }
-
-    private void removeEmployeeSalary(Employee empl) {
-        int salary = empl.salary();
-        List<Employee> list = employeesSalary.get(salary);
-        list.remove(empl);
-        if (list.isEmpty()) {
-            employeesSalary.remove(salary);
-        }
-    }
 
     @Override
     public Employee getEmployee(long id) {
@@ -144,6 +116,7 @@ public class CompanyImpl<T> implements Company {
 
     @Override
     public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
+        refreshAg+e();
         return employeesAge
                 .subMap(ageFrom, ageTo)
                 .values()
@@ -173,17 +146,13 @@ public class CompanyImpl<T> implements Company {
         return empl;
     }
 
-    public Employee update(long id, Object param) {
-        Employee empl = removeEmployee(id);
-        Employee newEmpl = null;
 
-        if (param instanceof Integer)
-            newEmpl = new Employee(empl.id(), empl.name(), empl.department(), (int) param, empl.birthDate());
-        else if (param instanceof String)
-            newEmpl = new Employee(empl.id(), empl.name(), (String) param, empl.salary(), empl.birthDate());
-
-        addEmployee(newEmpl);
-        return empl;
+    private void refreshAge() {
+        if (lastAgeRefresh.isBefore(LocalDate.now())) {
+            employeesAge.clear();
+            employees.values().forEach(e -> addToIndexMap(e, employeesAge, f -> getAge(f.birthDate())));
+            lastAgeRefresh = LocalDate.now();
+        }
     }
 
 }
