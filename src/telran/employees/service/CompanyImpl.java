@@ -75,7 +75,8 @@ public class CompanyImpl implements Company {
                                 .stream()
                                 .mapToDouble(Employee::salary)
                                 .average()
-                                .orElse(0.0))
+                                .orElse(0.0)
+                        )
                 );
         return mapDepartmentAvgSalary
                 .entrySet()
@@ -106,6 +107,9 @@ public class CompanyImpl implements Company {
 
     @Override
     public List<Employee> getEmployeesBySalary(int salaryFrom, int salaryTo) {
+        if (salaryFrom == salaryTo)
+            salaryTo++;
+
         return employeesSalary
                 .subMap(salaryFrom, salaryTo)
                 .values()
@@ -117,6 +121,10 @@ public class CompanyImpl implements Company {
     @Override
     public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
         refreshAge();
+
+        if (ageFrom == ageTo)
+            ageTo++;
+
         return employeesAge
                 .subMap(ageFrom, ageTo)
                 .values()

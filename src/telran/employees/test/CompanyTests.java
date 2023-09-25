@@ -14,25 +14,34 @@ import telran.employees.dto.*;
 import telran.employees.service.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CompanyTests {
-    private static final long ID1 = 123;
-    private static final String DEP1 = "dep1";
+
+
     private static final int SALARY1 = 10000;
+    private static final int SALARY2 = 5000;
+    private static final int SALARY3 = 15000;
+
     private static final int YEAR1 = 2000;
+    private static final int YEAR2 = 1990;
+    private static final int YEAR3 = 2003;
+
     private static final LocalDate DATE1 = LocalDate.ofYearDay(YEAR1, 100);
+    private static final LocalDate DATE2 = LocalDate.ofYearDay(YEAR2, 100);
+    private static final LocalDate DATE3 = LocalDate.ofYearDay(YEAR3, 100);
+
+    private static final long ID1 = 123;
     private static final long ID2 = 124;
     private static final long ID3 = 125;
     private static final long ID4 = 126;
     private static final long ID5 = 127;
+
+    private static final String DEP1 = "dep1";
     private static final String DEP2 = "dep2";
     private static final String DEP3 = "dep3";
-    private static final int SALARY2 = 5000;
-    private static final int SALARY3 = 15000;
-    private static final int YEAR2 = 1990;
-    private static final LocalDate DATE2 = LocalDate.ofYearDay(YEAR2, 100);
-    private static final int YEAR3 = 2003;
-    private static final LocalDate DATE3 = LocalDate.ofYearDay(YEAR3, 100);
+    private static final String DEP4 = "dep4";
+
     private static final long ID_NOT_EXIST = 10000000;
     private static final String TEST_DATA = "test.data";
+
     Employee empl1 = new Employee(ID1, "name", DEP1, SALARY1, DATE1);
     Employee empl2 = new Employee(ID2, "name", DEP2, SALARY2, DATE2);
     Employee empl3 = new Employee(ID3, "name", DEP1, SALARY1, DATE1);
@@ -96,10 +105,15 @@ class CompanyTests {
     void testSave() {
         company.save(TEST_DATA);
     }
-    //Tests of CW/HW #34
+
     @Test
     void testGetDepartmentSalaryDistribution() {
-        //TODO
+        company.addEmployee(new Employee(ID_NOT_EXIST, "name", DEP1, 13_000, DATE1));
+        DepartmentSalary ds1 = new DepartmentSalary("dep1", 11_000);
+        DepartmentSalary ds2 = new DepartmentSalary("dep2", 5_000);
+        DepartmentSalary ds3 = new DepartmentSalary("dep3", 15_000);
+        List<DepartmentSalary> expected = List.of(ds2, ds1, ds3);
+        assertIterableEquals(expected, company.getDepartmentSalaryDistribution());
     }
     @Test
     void testGetSalaryDistribution() {
@@ -114,35 +128,50 @@ class CompanyTests {
 
     @Test
     void testGetEmployeesByDepartment() {
-        //TODO
-        System.out.println(LocalDate.now().isBefore(LocalDate.now()));
-
-
+        assertNull(company.getEmployeesByDepartment(DEP4));
+        List<Employee> expected = List.of(empl1, empl3);
+        assertIterableEquals(expected, company.getEmployeesByDepartment(DEP1));
     }
 
     @Test
     void testGetEmployeesBySalary(){
-        //TODO
+        assertEquals(0, company.getEmployeesBySalary(4_000, 5_000).size());
+        assertEquals(0, company.getEmployeesBySalary(20_000, 25_000).size());
+
+        List<Employee> expected = List.of(empl2, empl4);
+        assertIterableEquals(expected, company.getEmployeesBySalary(SALARY2, SALARY1));
+        assertIterableEquals(expected, company.getEmployeesBySalary(SALARY2, SALARY2));
     }
 
     @Test
     void testGetEmployeesByAge(){
-        //TODO
+        assertEquals(0, company.getEmployeesByAge(50, 60).size());
+        assertEquals(0, company.getEmployeesByAge(1, 10).size());
+
+        List<Employee> expected = List.of(empl1, empl3);
+        assertIterableEquals(expected, company.getEmployeesByAge(23, 26));
+        assertIterableEquals(expected, company.getEmployeesByAge(23, 23));
     }
 
     @Test
     void testUpdateSalary() {
-        //TODO
+        List<Employee> expected = List.of(empl2, empl4, empl1);
+        company.updateSalary(ID1,SALARY2);
+        assertIterableEquals(expected, company.getEmployeesBySalary(SALARY2, SALARY1));
+
+        expected = List.of(empl3);
+        assertIterableEquals(expected, company.getEmployeesBySalary(SALARY1, SALARY1));
     }
 
     @Test
     void testUpdateDepartment() {
-        //TODO
+        List<Employee> expected = List.of(empl2, empl4, empl1);
+        company.updateDepartment(ID1,DEP2);
+        assertIterableEquals(expected, company.getEmployeesByDepartment(DEP2));
+
+        expected = List.of(empl3);
+        assertIterableEquals(expected, company.getEmployeesByDepartment(DEP1));
     }
 
-    @Test
-    void testUpdate() {
-        //TODO
-    }
 
 }
