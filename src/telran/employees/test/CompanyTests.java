@@ -3,6 +3,7 @@ package telran.employees.test;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -14,7 +15,6 @@ import telran.employees.dto.*;
 import telran.employees.service.*;
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class CompanyTests {
-
 
     private static final int SALARY1 = 10000;
     private static final int SALARY2 = 5000;
@@ -128,7 +128,7 @@ class CompanyTests {
 
     @Test
     void testGetEmployeesByDepartment() {
-        assertNull(company.getEmployeesByDepartment(DEP4));
+        assertEquals(0, company.getEmployeesByDepartment(DEP4).size());
         List<Employee> expected = List.of(empl1, empl3);
         assertIterableEquals(expected, company.getEmployeesByDepartment(DEP1));
     }
@@ -140,7 +140,6 @@ class CompanyTests {
 
         List<Employee> expected = List.of(empl2, empl4);
         assertIterableEquals(expected, company.getEmployeesBySalary(SALARY2, SALARY1));
-        assertIterableEquals(expected, company.getEmployeesBySalary(SALARY2, SALARY2));
     }
 
     @Test
@@ -149,8 +148,7 @@ class CompanyTests {
         assertEquals(0, company.getEmployeesByAge(1, 10).size());
 
         List<Employee> expected = List.of(empl1, empl3);
-        assertIterableEquals(expected, company.getEmployeesByAge(23, 26));
-        assertIterableEquals(expected, company.getEmployeesByAge(23, 23));
+        assertIterableEquals(expected, company.getEmployeesByAge(getAge(DATE1), getAge(DATE1) + 2));
     }
 
     @Test
@@ -158,9 +156,6 @@ class CompanyTests {
         List<Employee> expected = List.of(empl2, empl4, empl1);
         company.updateSalary(ID1,SALARY2);
         assertIterableEquals(expected, company.getEmployeesBySalary(SALARY2, SALARY1));
-
-        expected = List.of(empl3);
-        assertIterableEquals(expected, company.getEmployeesBySalary(SALARY1, SALARY1));
     }
 
     @Test
@@ -171,6 +166,10 @@ class CompanyTests {
 
         expected = List.of(empl3);
         assertIterableEquals(expected, company.getEmployeesByDepartment(DEP1));
+    }
+
+        private int getAge(LocalDate birthDate) {
+        return (int) ChronoUnit.YEARS.between(birthDate, LocalDate.now());
     }
 
 

@@ -1,7 +1,6 @@
 package telran.employees.service;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -10,24 +9,22 @@ import telran.employees.dto.*;
 public class CompanyImpl implements Company {
     HashMap<Long, Employee> employees = new HashMap<>();
     HashMap<String, List<Employee>> employeesDepartment = new HashMap<>();
-    TreeMap<Integer, List<Employee>> employeesAge = new TreeMap<>();
+    TreeMap<LocalDate, List<Employee>> employeesDate = new TreeMap<>();
     TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>();
-
-    LocalDate lastAgeRefresh = LocalDate.now();
 
     @Override
     public boolean addEmployee(Employee empl) {
         boolean res = employees.putIfAbsent(empl.id(), empl) == null;
         if (res) {
-            addToIndexMap(empl, employeesAge, e -> getAge(e.birthDate()));
+            addToIndexMap(empl, employeesDate, Employee::birthDate);
             addToIndexMap(empl, employeesDepartment, Employee::department);
             addToIndexMap(empl, employeesSalary, Employee::salary);
         }
         return res;
     }
 
-    private <T> void addToIndexMap(Employee empl, Map<T, List<Employee>> indexMap, Function<Employee, T> keyFn) {
-        T key = keyFn.apply(empl);
+    private <T> void addToIndexMap(Employee empl, Map<T, List<Employee>> indexMap, Function<Employee, T> keyExtractor) {
+        T key = keyExtractor.apply(empl);
         indexMap.computeIfAbsent(key, k -> new LinkedList<>()).add(empl);
     }
 
@@ -36,7 +33,7 @@ public class CompanyImpl implements Company {
     public Employee removeEmployee(long id) {
         Employee empl = employees.remove(id);
         if(empl != null) {
-            removeFromIndexMap(empl, employeesAge, e -> getAge(e.birthDate()));
+            removeFromIndexMap(empl, employeesDate, Employee::birthDate);
             removeFromIndexMap(empl, employeesDepartment, Employee::department);
             removeFromIndexMap(empl, employeesSalary, Employee::salary);
         }
@@ -102,13 +99,16 @@ public class CompanyImpl implements Company {
 
     @Override
     public List<Employee> getEmployeesByDepartment(String department) {
-        return employeesDepartment.get(department);
+        Collection<Employee> employeesCol = employeesDepartment.get(department);
+        ArrayList<Employee> res = new ArrayList<>();
+        if (employeesCol != null) {
+            res.addAll(employeesCol);
+        }
+        return res;
     }
 
     @Override
     public List<Employee> getEmployeesBySalary(int salaryFrom, int salaryTo) {
-        if (salaryFrom == salaryTo)
-            salaryTo++;
 
         return employeesSalary
                 .subMap(salaryFrom, salaryTo)
@@ -120,22 +120,23 @@ public class CompanyImpl implements Company {
 
     @Override
     public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
-        refreshAge();
+        LocalDate dateFrom = getDate(ageTo);
+        LocalDate dateTo = getDate(ageFrom);
 
-        if (ageFrom == ageTo)
-            ageTo++;
-
-        return employeesAge
-                .subMap(ageFrom, ageTo)
+        return employeesDate
+                .subMap(dateFrom, dateTo)
                 .values()
                 .stream()
                 .flatMap(List::stream)
                 .toList();
     }
 
-    private int getAge(LocalDate birthDate) {
 
-        return (int)ChronoUnit.YEARS.between(birthDate, LocalDate.now());
+
+    private LocalDate getDate(int age) {
+        LocalDate currentDate = LocalDate.now();
+
+        return currentDate.minusYears(age);
     }
 
 
@@ -143,24 +144,23 @@ public class CompanyImpl implements Company {
     @Override
     public Employee updateSalary(long id, int newSalary) {
         Employee empl = removeEmployee(id);
-        addEmployee(new Employee(empl.id(), empl.name(), empl.department(), newSalary, empl.birthDate()));
+
+        if (empl != null) {
+            addEmployee(new Employee(empl.id(), empl.name(), empl.department(), newSalary, empl.birthDate()));
+        }
         return empl;
     }
 
     @Override
     public Employee updateDepartment(long id, String department) {
         Employee empl = removeEmployee(id);
-        addEmployee(new Employee(empl.id(), empl.name(), department, empl.salary(), empl.birthDate()));
+
+        if (empl != null) {
+            addEmployee(new Employee(empl.id(), empl.name(), department, empl.salary(), empl.birthDate()));
+        }
         return empl;
     }
 
 
-    private void refreshAge() {
-        if (lastAgeRefresh.isBefore(LocalDate.now())) {
-            employeesAge.clear();
-            employees.values().forEach(e -> addToIndexMap(e, employeesAge, f -> getAge(f.birthDate())));
-            lastAgeRefresh = LocalDate.now();
-        }
-    }
 
 }
