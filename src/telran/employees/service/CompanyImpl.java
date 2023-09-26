@@ -148,6 +148,7 @@ public class CompanyImpl implements Company {
         if (empl != null) {
             addEmployee(new Employee(empl.id(), empl.name(), empl.department(), newSalary, empl.birthDate()));
         }
+
         return empl;
     }
 
