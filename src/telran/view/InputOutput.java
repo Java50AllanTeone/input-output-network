@@ -1,13 +1,10 @@
 package telran.view;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.HashSet;
-import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
-import java.util.regex.Pattern;
 
 public interface InputOutput {
     String readString(String prompt);
@@ -65,15 +62,8 @@ public interface InputOutput {
     }
 
     default Integer readInt(String prompt, String errorPrompt, int min, int max) {
-        //TODO
-        return readObject(prompt, errorPrompt, e -> {
-            int num = Integer.parseInt(e);
-
-            if (num < min || num > max) {
-                throw new IllegalArgumentException(errorPrompt);
-            }
-            return num;
-        });
+        return readObject(prompt, errorPrompt,
+                e -> rangeMapper(e, errorPrompt, Integer::parseInt, Integer::compare, min, max));
     }
 
     default Long readLong(String prompt, String errorPrompt) {
@@ -81,15 +71,8 @@ public interface InputOutput {
     }
 
     default Long readLong(String prompt, String errorPrompt, long min, long max) {
-        //TODO
-        return readObject(prompt, errorPrompt, e -> {
-            long num = Long.parseLong(e);
-
-            if (num < min || num > max) {
-                throw new IllegalArgumentException(errorPrompt);
-            }
-            return num;
-        });
+        return readObject(prompt, errorPrompt,
+                e -> rangeMapper(e, errorPrompt, Long::parseLong, Long::compare, min, max));
     }
 
     default Double readDouble(String prompt, String errorPrompt) {
@@ -97,15 +80,8 @@ public interface InputOutput {
     }
 
     default Double readDouble(String prompt, String errorPrompt, double min, double max) {
-        //TODO
-        return readObject(prompt, errorPrompt, e -> {
-            double num = Double.parseDouble(e);
-
-            if (Double.compare(num, min) < 0 || Double.compare(num, max) > 0) {
-                throw new IllegalArgumentException(errorPrompt);
-            }
-            return num;
-        });
+        return readObject(prompt, errorPrompt,
+                e -> rangeMapper(e, errorPrompt, Double::parseDouble, Double::compare, min, max));
     }
 
     default LocalDate readIsoDate(String prompt, String errorPrompt) {
@@ -113,8 +89,8 @@ public interface InputOutput {
     }
 
     default LocalDate readIsoDate(String prompt, String errorPrompt, LocalDate min, LocalDate max) {
-        //TODO
-        return null;
+        return readObject(prompt, errorPrompt,
+                e -> rangeMapper(e, errorPrompt, LocalDate::parse, LocalDate::compareTo, min, max));
     }
 
 
@@ -131,6 +107,12 @@ public interface InputOutput {
     }
 
 
+    default <T> T rangeMapper(String str, String err, Function<String, T> fn, Comparator<T> comp, T min, T max) {
+        T num = fn.apply(str);
 
+        if (comp.compare(num, min) < 0 || comp.compare(num, max) > 0)
+            throw new IllegalArgumentException(err);
 
+        return num;
+    }
 }
