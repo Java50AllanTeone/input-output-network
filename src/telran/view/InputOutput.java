@@ -65,10 +65,11 @@ public interface InputOutput {
     }
 
     default Integer readInt(String prompt, String errorPrompt, int min, int max) {
+        //TODO
         return readObject(prompt, errorPrompt, e -> {
             int num = Integer.parseInt(e);
 
-            if (num < min || num >= max) {
+            if (num < min || num > max) {
                 throw new IllegalArgumentException(errorPrompt);
             }
             return num;
@@ -81,7 +82,14 @@ public interface InputOutput {
 
     default Long readLong(String prompt, String errorPrompt, long min, long max) {
         //TODO
-        return null;
+        return readObject(prompt, errorPrompt, e -> {
+            long num = Long.parseLong(e);
+
+            if (num < min || num > max) {
+                throw new IllegalArgumentException(errorPrompt);
+            }
+            return num;
+        });
     }
 
     default Double readDouble(String prompt, String errorPrompt) {
@@ -90,7 +98,14 @@ public interface InputOutput {
 
     default Double readDouble(String prompt, String errorPrompt, double min, double max) {
         //TODO
-        return null;
+        return readObject(prompt, errorPrompt, e -> {
+            double num = Double.parseDouble(e);
+
+            if (Double.compare(num, min) < 0 || Double.compare(num, max) > 0) {
+                throw new IllegalArgumentException(errorPrompt);
+            }
+            return num;
+        });
     }
 
     default LocalDate readIsoDate(String prompt, String errorPrompt) {
