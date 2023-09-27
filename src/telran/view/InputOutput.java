@@ -1,6 +1,7 @@
 package telran.view;
 
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,29 +14,41 @@ public interface InputOutput {
     void writeString(String string);
 
     default String readString(String prompt, String errorPrompt, Predicate<String> pattern) {
-        String str;
-        boolean running = false;
-
-        do {
-            str = readString(prompt);
-            if (running = !pattern.test(str)) {
-                writeLine(errorPrompt);
-            }
-        } while (running);
-
-        return str;
+         return readObject(prompt, errorPrompt, e -> {
+             if (!pattern.test(e)) {
+                 throw new IllegalArgumentException(errorPrompt);
+             }
+             return e.toString();
+         });
     }
 
     default String readString(String prompt, String errorPrompt, HashSet<String> options) {
-        return null;
+        return readString(prompt, errorPrompt, options::contains);
     }
 
+
+
     default <T> T readObject(String prompt, String errorPrompt, Function<String, T> mapper) {
-        boolean running = false;
+//        boolean running = false;
+//        T res = null;
+//
+//        do {
+//            running = false;
+//            String string = readString(prompt);
+//
+//            try {
+//                res = mapper.apply(string);
+//                return res;
+//            } catch (RuntimeException e) {
+//                writeLine(errorPrompt + ": " + e.getMessage());
+//                running = true;
+//            }
+//        } while (running);
+//        return res;
+
         T res = null;
 
-        do {
-            running = false;
+        while (true) {
             String string = readString(prompt);
 
             try {
@@ -43,10 +56,8 @@ public interface InputOutput {
                 return res;
             } catch (RuntimeException e) {
                 writeLine(errorPrompt + ": " + e.getMessage());
-                running = true;
             }
-        } while (running);
-        return res;
+        }
     }
 
     default  Integer readInt(String prompt, String errorPrompt) {
@@ -54,7 +65,14 @@ public interface InputOutput {
     }
 
     default Integer readInt(String prompt, String errorPrompt, int min, int max) {
-        return -1;
+        return readObject(prompt, errorPrompt, e -> {
+            int num = Integer.parseInt(e);
+
+            if (num < min || num >= max) {
+                throw new IllegalArgumentException(errorPrompt);
+            }
+            return num;
+        });
     }
 
     default Long readLong(String prompt, String errorPrompt) {
@@ -62,6 +80,7 @@ public interface InputOutput {
     }
 
     default Long readLong(String prompt, String errorPrompt, long min, long max) {
+        //TODO
         return null;
     }
 
@@ -70,6 +89,7 @@ public interface InputOutput {
     }
 
     default Double readDouble(String prompt, String errorPrompt, double min, double max) {
+        //TODO
         return null;
     }
 
@@ -78,6 +98,7 @@ public interface InputOutput {
     }
 
     default LocalDate readIsoDate(String prompt, String errorPrompt, LocalDate min, LocalDate max) {
+        //TODO
         return null;
     }
 
