@@ -13,7 +13,6 @@ public class SystemInputOutput implements InputOutput {
         String res = null;
 
         try {
-            reader.readLine();
             res = reader.readLine();
 
         } catch (IOException e) {
