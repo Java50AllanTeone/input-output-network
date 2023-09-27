@@ -1,23 +1,36 @@
 package telran.view;
 
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.regex.Pattern;
 
 public interface InputOutput {
     String readString(String prompt);
     void writeString(String string);
 
     default String readString(String prompt, String errorPrompt, Predicate<String> pattern) {
-        return null;
+        String str;
+        boolean running = false;
+
+        do {
+            str = readString(prompt);
+            if (running = !pattern.test(str)) {
+                writeLine(errorPrompt);
+            }
+        } while (running);
+
+        return str;
     }
-    default String readString(String prompt, String errorPrompt, Set<String> options) {
+
+    default String readString(String prompt, String errorPrompt, HashSet<String> options) {
         return null;
     }
 
     default <T> T readObject(String prompt, String errorPrompt, Function<String, T> mapper) {
-
         boolean running = false;
         T res = null;
 
