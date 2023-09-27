@@ -120,7 +120,7 @@ public class CompanyImpl implements Company {
 
     @Override
     public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
-        LocalDate dateFrom = getDateFrom(getDate(ageTo));
+        LocalDate dateFrom = getDateFrom(ageTo);
         LocalDate dateTo = getDate(ageFrom);
 
         return employeesDate
@@ -137,8 +137,8 @@ public class CompanyImpl implements Company {
         return LocalDate.now().minusYears(age);
     }
 
-    private LocalDate getDateFrom(LocalDate date) {
-        return date.minusYears(1).plusDays(1);
+    private LocalDate getDateFrom(int age) {
+        return LocalDate.now().minusYears(age + 1).plusDays(1);
     }
 
 
