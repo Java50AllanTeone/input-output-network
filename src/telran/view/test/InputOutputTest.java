@@ -35,9 +35,9 @@ class InputOutputTest {
 
                     long id = Long.parseLong(tokens[0]);
                     String name = tokens[1];
+                    LocalDate birthDate = LocalDate.parse(tokens[2]);
                     String department = tokens[3];
                     int salary = Integer.parseInt(tokens[4]);
-                    LocalDate birthDate = LocalDate.parse(tokens[2]);
 
                     return new Employee(id, name, department, salary, birthDate);
                 });
