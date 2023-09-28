@@ -107,7 +107,7 @@ public interface InputOutput {
     }
 
 
-    default <T> T rangeMapper(String str, String err, Function<String, T> fn, Comparator<T> comp, T min, T max) {
+    private <T> T rangeMapper(String str, String err, Function<String, T> fn, Comparator<T> comp, T min, T max) {
         T num = fn.apply(str);
 
         if (comp.compare(num, min) < 0 || comp.compare(num, max) > 0)
