@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.HashSet;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,7 +26,6 @@ class InputOutputTest {
 
     @Test
     void testReadEmployeeString() {
-
         Employee empl = io.readObject(
                 "Enter employee <id>#<name>#<iso birthdate>#<department>#<salary>",
                 "Wrong Employee",
@@ -44,69 +45,90 @@ class InputOutputTest {
         io.writeObjectLine(empl);
     }
 
+
     @Test
-    void readString() throws IOException {
-
-
+    void readStringPattern() {
+        assertEquals(5, io.readString("Enter string",
+                "string length must be 5",
+                e -> e.length() == 5).length());
     }
 
     @Test
-    void writeString() {
-    }
-
-    @Test
-    void testReadString() {
-    }
-
-    @Test
-    void testReadString1() {
+    void readStringOptions() {
+        HashSet<String> set = new HashSet<>(Arrays.asList(new String[]{"123"}));
+        assertEquals("123", io.readString("Enter string",
+                "string must be contained in options",
+                set));
     }
 
     @Test
     void readObject() {
+        assertTrue(io.readObject("Enter string",
+                "cannot parse to int",
+                Integer::parseInt) instanceof Integer);
     }
 
     @Test
     void readInt() {
+        assertTrue(io.readInt("Enter string",
+                "cannot parse to int") instanceof Integer);
     }
 
     @Test
-    void testReadInt() {
+    void readIntRange() {
+        var res = io.readInt("Enter string",
+                "cannot parse to int", 1, 5);
+
+        assertTrue(res instanceof Integer);
+        assertTrue(res >= 1 && res <= 5);
     }
 
     @Test
     void readLong() {
+        assertTrue(io.readLong("Enter string",
+                "cannot parse to long") instanceof Long);
     }
 
     @Test
-    void testReadLong() {
+    void readLongRange() {
+        var res = io.readLong("Enter string",
+                "cannot parse to long", 1, 5);
+
+        assertTrue(res instanceof Long);
+        assertTrue(res >= 1 && res <= 5);
     }
 
     @Test
     void readDouble() {
+        assertTrue(io.readDouble("Enter string",
+                "cannot parse to double") instanceof Double);
     }
 
     @Test
-    void testReadDouble() {
+    void readDoubleRange() {
+        var res = io.readDouble("Enter string",
+                "cannot parse to double", 1, 5);
+
+        assertTrue(res instanceof Double);
+        assertTrue(res >= 1 && res <= 5);
     }
+
 
     @Test
     void readIsoDate() {
+        assertTrue(io.readIsoDate("Enter string",
+                "cannot parse to date") instanceof LocalDate);
     }
 
-    @Test
-    void testReadIsoDate() {
-    }
 
     @Test
-    void writeLine() {
-    }
+    void readIsoDateRange() {
+        LocalDate from = LocalDate.parse("2005-09-23");
+        LocalDate to = LocalDate.parse("2010-11-03");
+        var res = io.readIsoDate("Enter string",
+                "cannot parse to date", from, to);
 
-    @Test
-    void writeObject() {
-    }
-
-    @Test
-    void writeObjectLine() {
+        assertTrue(res instanceof LocalDate);
+        assertTrue(!res.isBefore(from) && !res.isAfter(to));
     }
 }

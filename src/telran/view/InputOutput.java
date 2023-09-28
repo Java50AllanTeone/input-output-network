@@ -13,9 +13,9 @@ public interface InputOutput {
     default String readString(String prompt, String errorPrompt, Predicate<String> pattern) {
          return readObject(prompt, errorPrompt, e -> {
              if (!pattern.test(e)) {
-                 throw new IllegalArgumentException(errorPrompt);
+                 throw new IllegalArgumentException("doesn't match a pattern");
              }
-             return e.toString();
+             return e;
          });
     }
 
@@ -63,7 +63,7 @@ public interface InputOutput {
 
     default Integer readInt(String prompt, String errorPrompt, int min, int max) {
         return readObject(prompt, errorPrompt,
-                e -> rangeMapper(e, errorPrompt, Integer::parseInt, Integer::compare, min, max));
+                e -> rangeMapper(e, "not in range", Integer::parseInt, Integer::compare, min, max));
     }
 
     default Long readLong(String prompt, String errorPrompt) {
