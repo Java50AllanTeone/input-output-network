@@ -26,23 +26,6 @@ public interface InputOutput {
 
 
     default <T> T readObject(String prompt, String errorPrompt, Function<String, T> mapper) {
-//        boolean running = false;
-//        T res = null;
-//
-//        do {
-//            running = false;
-//            String string = readString(prompt);
-//
-//            try {
-//                res = mapper.apply(string);
-//                return res;
-//            } catch (RuntimeException e) {
-//                writeLine(errorPrompt + ": " + e.getMessage());
-//                running = true;
-//            }
-//        } while (running);
-//        return res;
-
         T res = null;
 
         while (true) {
@@ -62,8 +45,7 @@ public interface InputOutput {
     }
 
     default Integer readInt(String prompt, String errorPrompt, int min, int max) {
-        return readObject(prompt, errorPrompt,
-                e -> rangeMapper(e, "not in range", Integer::parseInt, Integer::compare, min, max));
+        return readData(prompt, errorPrompt, Integer::parseInt, Integer::compare, min, max);
     }
 
     default Long readLong(String prompt, String errorPrompt) {
@@ -71,8 +53,7 @@ public interface InputOutput {
     }
 
     default Long readLong(String prompt, String errorPrompt, long min, long max) {
-        return readObject(prompt, errorPrompt,
-                e -> rangeMapper(e, errorPrompt, Long::parseLong, Long::compare, min, max));
+        return readData(prompt, errorPrompt, Long::parseLong, Long::compare, min, max);
     }
 
     default Double readDouble(String prompt, String errorPrompt) {
@@ -80,8 +61,7 @@ public interface InputOutput {
     }
 
     default Double readDouble(String prompt, String errorPrompt, double min, double max) {
-        return readObject(prompt, errorPrompt,
-                e -> rangeMapper(e, errorPrompt, Double::parseDouble, Double::compare, min, max));
+        return readData(prompt, errorPrompt, Double::parseDouble, Double::compare, min, max);
     }
 
     default LocalDate readIsoDate(String prompt, String errorPrompt) {
@@ -89,8 +69,7 @@ public interface InputOutput {
     }
 
     default LocalDate readIsoDate(String prompt, String errorPrompt, LocalDate min, LocalDate max) {
-        return readObject(prompt, errorPrompt,
-                e -> rangeMapper(e, errorPrompt, LocalDate::parse, LocalDate::compareTo, min, max));
+        return readData(prompt, errorPrompt, LocalDate::parse, LocalDate::compareTo, min, max);
     }
 
 
@@ -107,12 +86,14 @@ public interface InputOutput {
     }
 
 
-    private <T> T rangeMapper(String str, String err, Function<String, T> fn, Comparator<T> comp, T min, T max) {
-        T num = fn.apply(str);
+    private <T> T readData(String msg, String err, Function<String, T> parser, Comparator<T> comp,
+                           T min, T max) {
+        return readObject(msg, err, e -> {
+            T obj = parser.apply(e);
 
-        if (comp.compare(num, min) < 0 || comp.compare(num, max) > 0)
-            throw new IllegalArgumentException(err);
-
-        return num;
+            if (comp.compare(obj, min) < 0 || comp.compare(obj, max) > 0)
+                throw new IllegalArgumentException("Must be in range: " + min + "-" + max);
+            return obj;
+        });
     }
 }

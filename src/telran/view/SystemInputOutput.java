@@ -25,4 +25,7 @@ public class SystemInputOutput implements InputOutput {
     public void writeString(String string) {
         writer.print(string);
     }
+
+
+
 }
