@@ -19,35 +19,32 @@ public class MaxRatedWinnersCollector {
 
 	private static class RateAccumulator<T> {
 		ToLongFunction<T> rater;
-		List<T> list = new ArrayList<>();
-		Long currentMax = Long.MIN_VALUE;
+		List<T> listOfWinners = new ArrayList<>();
+		long currentMax = Long.MIN_VALUE;
 
 		public RateAccumulator(ToLongFunction<T> rater) {
 			this.rater = rater;
 		}
-
 
 		public void accumulate(T value) {
 			long rate = rater.applyAsLong(value);
 
 			if (rate > currentMax) {
 				currentMax = rate;
-				list.clear();
+				listOfWinners.clear();
 			}
 
 			if (rate == currentMax)
-				list.add(value);
+				listOfWinners.add(value);
 		}
-
 
 		public List<T> getWinnersList() {
-			return list;
+			return listOfWinners;
 		}
-
 
 		public RateAccumulator<T> combine(RateAccumulator<T> other) {
 			if (Objects.equals(currentMax, other.currentMax))
-				list.addAll(other.list);
+				listOfWinners.addAll(other.listOfWinners);
 
 			return currentMax >= other.currentMax ? this : other;
 		}
