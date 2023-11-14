@@ -1,0 +1,352 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="7fe4b60d-3707-406d-8716-da3766baf432" name="Changes" comment="solution">
+      <change afterPath="$PROJECT_DIR$/src/Pip.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Record" />
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="employees-console-application" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2Vnps9GRq8g0iHLNh4tH6RBwGg4" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Notification.DisplayName-DoNotAsk-Vcs Important Messages&quot;: &quot;VCS important messages&quot;,
+    &quot;Notification.DoNotAsk-Vcs Important Messages&quot;: &quot;true&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary&quot;: &quot;JUnit5&quot;,
+    &quot;com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5&quot;: &quot;&quot;,
+    &quot;create.test.in.the.same.root&quot;: &quot;true&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Git\input-output-network\src" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="telran.view.test" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Application.Pip">
+    <configuration name="Pip" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="Pip" />
+      <module name="input-output-network" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="20" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Test" />
+      <module name="input-output-network" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="20" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
+      <option name="MAIN_CLASS_NAME" value="Test.java" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="CompanyTests" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="input-output-network" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="telran.employees.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="telran.employees.test" />
+      <option name="MAIN_CLASS_NAME" value="telran.employees.test.CompanyTests" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InputOutputTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="input-output-network" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="telran.view.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="telran.view.test" />
+      <option name="MAIN_CLASS_NAME" value="telran.view.test.InputOutputTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Pip" />
+        <item itemvalue="Application.Test (1)" />
+        <item itemvalue="JUnit.InputOutputTest" />
+        <item itemvalue="JUnit.CompanyTests" />
+        <item itemvalue="Application.Test" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="7fe4b60d-3707-406d-8716-da3766baf432" name="Changes" comment="" />
+      <created>1695481902900</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1695481902900</updated>
+    </task>
+    <task id="LOCAL-00001" summary="cw-33">
+      <created>1695482282112</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1695482282112</updated>
+    </task>
+    <task id="LOCAL-00002" summary="cw-34">
+      <created>1695482944228</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695482944228</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cw-34">
+      <created>1695483017325</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1695483017325</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cw-34">
+      <created>1695495526722</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695495526722</updated>
+    </task>
+    <task id="LOCAL-00005" summary="hw-34">
+      <created>1695592194670</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695592194670</updated>
+    </task>
+    <task id="LOCAL-00006" summary="hw-34">
+      <created>1695635226885</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1695635226885</updated>
+    </task>
+    <task id="LOCAL-00007" summary="hw-34">
+      <created>1695635373293</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1695635373293</updated>
+    </task>
+    <task id="LOCAL-00008" summary="hw-34">
+      <created>1695652964199</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1695652964199</updated>
+    </task>
+    <task id="LOCAL-00009" summary="hw-34">
+      <created>1695666752353</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1695666752353</updated>
+    </task>
+    <task id="LOCAL-00010" summary="hw-34">
+      <created>1695666845590</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1695666845590</updated>
+    </task>
+    <task id="LOCAL-00011" summary="cw-35">
+      <created>1695745317622</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1695745317622</updated>
+    </task>
+    <task id="LOCAL-00012" summary="cw-35">
+      <created>1695745372706</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1695745372706</updated>
+    </task>
+    <task id="LOCAL-00013" summary="cw-35">
+      <created>1695756712247</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1695756712247</updated>
+    </task>
+    <task id="LOCAL-00014" summary="hw-35">
+      <created>1695791982449</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1695791982449</updated>
+    </task>
+    <task id="LOCAL-00015" summary="hw-35">
+      <created>1695792975821</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1695792975821</updated>
+    </task>
+    <task id="LOCAL-00016" summary="hw-35">
+      <created>1695794705251</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1695794705251</updated>
+    </task>
+    <task id="LOCAL-00017" summary="hw-35">
+      <created>1695852245579</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1695852245579</updated>
+    </task>
+    <task id="LOCAL-00018" summary="hw-35">
+      <created>1695852635020</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1695852635021</updated>
+    </task>
+    <task id="LOCAL-00019" summary="hw-35">
+      <created>1695855157722</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1695855157722</updated>
+    </task>
+    <task id="LOCAL-00020" summary="hw-35">
+      <created>1695855318593</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1695855318593</updated>
+    </task>
+    <task id="LOCAL-00021" summary="hw-35">
+      <created>1695881606691</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1695881606691</updated>
+    </task>
+    <task id="LOCAL-00022" summary="solution">
+      <created>1696436388295</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1696436388295</updated>
+    </task>
+    <task id="LOCAL-00023" summary="solution">
+      <created>1696441400085</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1696441400085</updated>
+    </task>
+    <task id="LOCAL-00024" summary="solution">
+      <created>1696441514044</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1696441514044</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="additional-16" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <MESSAGE value="cw-33" />
+    <MESSAGE value="cw-34" />
+    <MESSAGE value="hw-34" />
+    <MESSAGE value="cw-35" />
+    <MESSAGE value="hw-35" />
+    <MESSAGE value="solution" />
+    <option name="LAST_COMMIT_MESSAGE" value="solution" />
+  </component>
+</project>
