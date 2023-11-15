@@ -64,32 +64,16 @@
       <recent name="telran.view.test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.BullsCowsAppl">
-    <configuration name="BullsCowsAppl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="telran.games.controller.BullsCowsAppl" />
+  <component name="RunManager" selected="Application.Abcde">
+    <configuration name="Abcde" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="telran.view.Abcde" />
       <module name="input-output-network" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="telran.games.controller.*" />
+          <option name="PATTERN" value="telran.view.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Pip" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Pip" />
-      <module name="input-output-network" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="20" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Test" />
-      <module name="input-output-network" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -124,13 +108,45 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="InputOutputTest.readString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="input-output-network" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="telran.view.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="telran.view.test" />
+      <option name="MAIN_CLASS_NAME" value="telran.view.test.InputOutputTest" />
+      <option name="METHOD_NAME" value="readString" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InputOutputTest.testReadEmployeeString" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="input-output-network" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="telran.view.test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="telran.view.test" />
+      <option name="MAIN_CLASS_NAME" value="telran.view.test.InputOutputTest" />
+      <option name="METHOD_NAME" value="testReadEmployeeString" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.BullsCowsAppl" />
-        <item itemvalue="Application.Pip" />
-        <item itemvalue="Application.Test (1)" />
+        <item itemvalue="JUnit.InputOutputTest.testReadEmployeeString" />
+        <item itemvalue="JUnit.InputOutputTest.readString" />
         <item itemvalue="JUnit.InputOutputTest" />
         <item itemvalue="JUnit.CompanyTests" />
+        <item itemvalue="Application.Abcde" />
       </list>
     </recent_temporary>
   </component>
