@@ -4,14 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="7fe4b60d-3707-406d-8716-da3766baf432" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/telran/view/InputOutput.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/telran/view/Item.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/telran/view/Menu.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/telran/view/SystemInputOutput.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/telran/games/controller/BullsCowsAppl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/telran/games/controller/BullsCowsAppl.java" afterDir="false" />
-    </list>
+    <list default="true" id="7fe4b60d-3707-406d-8716-da3766baf432" name="Changes" comment="final" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -332,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699981208317</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="final">
+      <created>1700067941598</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1700067941598</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -372,6 +372,7 @@
     <MESSAGE value="hw-35" />
     <MESSAGE value="solution" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="final" />
+    <option name="LAST_COMMIT_MESSAGE" value="final" />
   </component>
 </project>
