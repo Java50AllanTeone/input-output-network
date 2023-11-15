@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7fe4b60d-3707-406d-8716-da3766baf432" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/telran/games/controller/BullsCowsAppl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/telran/games/dto/MoveResult.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/telran/games/service/BullsCows.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/telran/games/service/BullsCowsImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/telran/view/InputOutput.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/telran/view/Item.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/telran/view/Menu.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/telran/view/SystemInputOutput.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/telran/games/controller/BullsCowsAppl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/telran/games/controller/BullsCowsAppl.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +71,20 @@
       <recent name="telran.view.test" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="Application.BullsCowsAppl">
+    <configuration name="BullsCowsAppl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="telran.games.controller.BullsCowsAppl" />
+      <module name="input-output-network" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="telran.games.controller.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Pip" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Pip" />
       <module name="input-output-network" />
@@ -83,14 +97,6 @@
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
       <option name="MAIN_CLASS_NAME" value="Test" />
       <module name="input-output-network" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="20" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="Test.java" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -127,11 +133,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BullsCowsAppl" />
         <item itemvalue="Application.Pip" />
         <item itemvalue="Application.Test (1)" />
         <item itemvalue="JUnit.InputOutputTest" />
         <item itemvalue="JUnit.CompanyTests" />
-        <item itemvalue="Application.Test" />
       </list>
     </recent_temporary>
   </component>
@@ -319,7 +325,14 @@
       <option name="project" value="LOCAL" />
       <updated>1699968056170</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="init">
+      <created>1699981208316</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1699981208317</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
