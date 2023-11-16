@@ -10,11 +10,10 @@ public interface Company {
     Employee removeEmployee(long id);
     Employee getEmployee(long id);
     List<Employee> getEmployees();
+
     @SuppressWarnings("unchecked")
     default void restore(String dataFile) {
-
-
-        if( Files.exists(Path.of(dataFile))) {
+        if (Files.exists(Path.of(dataFile))) {
             try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(dataFile))) {
                 List<Employee> employeesRestore = (List<Employee>) stream.readObject();
                 employeesRestore.forEach(e -> addEmployee(e));
@@ -23,12 +22,12 @@ public interface Company {
             }
         }
     }
+
     default void save(String dataFile) {
 
-
-        try(ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(dataFile))) {
+        try (ObjectOutputStream stream = new ObjectOutputStream(new FileOutputStream(dataFile))) {
             stream.writeObject(getEmployees());
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new RuntimeException(e.toString());
         }
     }
