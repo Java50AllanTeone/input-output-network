@@ -65,13 +65,13 @@
       <recent name="telran.view.test" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Abcde">
-    <configuration name="Abcde" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="telran.view.Abcde" />
+  <component name="RunManager" selected="Application.BullsCowsAppl">
+    <configuration name="BullsCowsAppl" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="telran.games.controller.BullsCowsAppl" />
       <module name="input-output-network" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="telran.view.*" />
+          <option name="PATTERN" value="telran.games.controller.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -143,11 +143,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.BullsCowsAppl" />
         <item itemvalue="JUnit.InputOutputTest.testReadEmployeeString" />
         <item itemvalue="JUnit.InputOutputTest.readString" />
         <item itemvalue="JUnit.InputOutputTest" />
         <item itemvalue="JUnit.CompanyTests" />
-        <item itemvalue="Application.Abcde" />
       </list>
     </recent_temporary>
   </component>
