@@ -30,7 +30,7 @@ public class CompanyController {
 
         return List.of(
                 Item.of("Hire new Employee", CompanyController::addEmployee),
-                Item.of("Fire  Employee", CompanyController::removeEmployee),
+                Item.of("Fire Employee", CompanyController::removeEmployee),
                 Item.of("Display data of Employee", CompanyController::getEmployee),
                 Item.of("Display data of all Employees", CompanyController::getEmployees),
                 Item.of("Distribution of salary by departments", CompanyController::getDepartmentSalaryDistribution),
