@@ -37,7 +37,7 @@ public class CompanyController {
                 Item.of("Salary distribution per interval", CompanyController::getSalaryDistribution),
                 Item.of("Display data of Employees in department", CompanyController::getEmployeesByDepartment),
                 Item.of("Display data of Employees by salary", CompanyController::getEmployeesBySalary),
-                Item.of("Display data of Employees by salarye", CompanyController::getEmployeesByAge),
+                Item.of("Display data of Employees by salary", CompanyController::getEmployeesByAge),
                 Item.of("Update salary", CompanyController::updateSalary),
                 Item.of("Update department", CompanyController::updateDepartment)
         );

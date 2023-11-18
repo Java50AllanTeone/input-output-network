@@ -7,7 +7,7 @@ import telran.view.*;
 import java.util.ArrayList;
 
 public class CompanyAppl {
-    private static final String DEFAULT_FILE_NAME = "employees.data";
+    private static final String DEFAULT_FILE_NAME = "test.data";
 
     public static void main(String[] args) {
         InputOutput io = new SystemInputOutput();
