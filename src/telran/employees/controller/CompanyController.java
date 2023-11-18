@@ -44,6 +44,10 @@ public class CompanyController {
     }
     static void addEmployee(InputOutput io) {
         long id = io.readLong("Enter employee identity", "Wrong identity", MIN_ID, MAX_ID);
+
+        if (company.getEmployee(id) != null) {
+            throw new RuntimeException("Employee already exists");
+        }
         String name = io.readString("Enter name", "Wrong name", str -> str.matches("[A-Z][a-z]{2,}"));
         String department = io.readString("Enter department " + Arrays.deepToString(DEPARTMENTS), "Wrong department", new HashSet<String>(List.of(DEPARTMENTS)));
         int salary = io.readInt("Enter Salary", "Wrong salary", MIN_SALARY, MAX_SALARY);
@@ -65,27 +69,27 @@ public class CompanyController {
     }
     static void getEmployees(InputOutput io) {
         List<Employee> employees = company.getEmployees();
-        employees.forEach(e -> io.writeObjectLine(e));
+        employees.forEach(io::writeObjectLine);
     }
     static void getDepartmentSalaryDistribution(InputOutput io) {
         List<DepartmentSalary> sd = company.getDepartmentSalaryDistribution();
-        sd.forEach(e -> io.writeObjectLine(e));
+        sd.forEach(io::writeObjectLine);
     }
     static void getSalaryDistribution(InputOutput io) {
         int interval = io.readInt("Enter interval", "Wrong interval");
         List<SalaryDistribution> sd = company.getSalaryDistribution(interval);
-        sd.forEach(e -> io.writeObjectLine(e));
+        sd.forEach(io::writeObjectLine);
     }
     static void getEmployeesByDepartment(InputOutput io) {
         String department = io.readString("Enter department " + Arrays.deepToString(DEPARTMENTS), "Wrong department", new HashSet<String>(List.of(DEPARTMENTS)));
         List<Employee> empls = company.getEmployeesByDepartment(department);
-        empls.forEach(e -> io.writeObject(e));
+        empls.forEach(io::writeObjectLine);
     }
     static void getEmployeesBySalary(InputOutput io) {
         int salaryFrom = io.readInt("Enter Salary From", "Wrong salary", MIN_SALARY, MAX_SALARY);
         int salaryTo = io.readInt("Enter Salary To", "Wrong salary", MIN_SALARY, MAX_SALARY);
         List<Employee> empls = company.getEmployeesBySalary(salaryFrom, salaryTo);
-        empls.forEach(e -> io.writeObjectLine(e));
+        empls.forEach(io::writeObjectLine);
     }
     static void getEmployeesByAge(InputOutput io) {
         int ageFrom = io.readInt("Enter Age From", "Wrong Age",
@@ -96,7 +100,7 @@ public class CompanyController {
                 LocalDate.now().minusYears(MIN_YEAR).getYear());
 
         List<Employee> empls = company.getEmployeesByAge(ageFrom, ageTo);
-        empls.forEach(e -> io.writeObjectLine(e));
+        empls.forEach(io::writeObjectLine);
     }
     static void updateSalary(InputOutput io) {
         long id = io.readLong("Enter employee identity", "Wrong identity", MIN_ID, MAX_ID);
