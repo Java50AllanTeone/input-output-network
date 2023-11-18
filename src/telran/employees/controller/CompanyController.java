@@ -1,11 +1,6 @@
 package telran.employees.controller;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
+
 import java.time.LocalDate;
 import java.util.*;
 
@@ -55,39 +50,67 @@ public class CompanyController {
         LocalDate birthDate = io.readIsoDate("Enter birtdate in ISO format", "Wrong birthdate",
                 LocalDate.of(MIN_YEAR,1, 1), LocalDate.of(MAX_YEAR,12, 31));
         Employee empl = new Employee(id, name, department, salary, birthDate);
-        boolean res = company.addEmployee(empl );
+        boolean res = company.addEmployee(empl);
         io.writeLine(res ? "Employee has been added" : "Employee already exists");
     }
     static void removeEmployee(InputOutput io) {
-        //TODO
+        long id = io.readLong("Enter employee identity", "Wrong identity", MIN_ID, MAX_ID);
+        Employee empl = company.removeEmployee(id);
+        io.writeLine(empl != null ? "Employee has been removed" : "Employee does not exist");
     }
     static void getEmployee(InputOutput io) {
-        //TODO
+        long id = io.readLong("Enter employee identity", "Wrong identity", MIN_ID, MAX_ID);
+        Employee empl = company.getEmployee(id);
+        io.writeObjectLine(empl != null ? empl : "Employee does not exist");
     }
     static void getEmployees(InputOutput io) {
         List<Employee> employees = company.getEmployees();
         employees.forEach(System.out::println);
     }
     static void getDepartmentSalaryDistribution(InputOutput io) {
-        //TODO
+        List<DepartmentSalary> sd = company.getDepartmentSalaryDistribution();
+        sd.forEach(e -> io.writeObjectLine(e));
     }
     static void getSalaryDistribution(InputOutput io) {
-        //TODO
+        int interval = io.readInt("Enter interval", "Wrong interval");
+        List<SalaryDistribution> sd = company.getSalaryDistribution(interval);
+        sd.forEach(e -> io.writeObjectLine(e));
     }
     static void getEmployeesByDepartment(InputOutput io) {
-        //TODO
+        String department = io.readString("Enter department " + Arrays.deepToString(DEPARTMENTS), "Wrong department", new HashSet<String>(List.of(DEPARTMENTS)));
+        List<Employee> empls = company.getEmployeesByDepartment(department);
+        empls.forEach(e -> io.writeObject(e));
     }
     static void getEmployeesBySalary(InputOutput io) {
-        //TODO
+        int salaryFrom = io.readInt("Enter Salary From", "Wrong salary", MIN_SALARY, MAX_SALARY);
+        int salaryTo = io.readInt("Enter Salary To", "Wrong salary", MIN_SALARY, MAX_SALARY);
+        List<Employee> empls = company.getEmployeesBySalary(salaryFrom, salaryTo);
+        empls.forEach(e -> io.writeObjectLine(e));
     }
     static void getEmployeesByAge(InputOutput io) {
-        //TODO
+        int ageFrom = io.readInt("Enter Age From", "Wrong Age",
+                LocalDate.now().minusYears(MAX_YEAR).getYear(),
+                LocalDate.now().minusYears(MIN_YEAR).getYear());
+        int ageTo = io.readInt("Enter Age To", "Wrong Age",
+                LocalDate.now().minusYears(MAX_YEAR).getYear(),
+                LocalDate.now().minusYears(MIN_YEAR).getYear());
+
+        List<Employee> empls = company.getEmployeesByAge(ageFrom, ageTo);
+        empls.forEach(e -> io.writeObjectLine(e));
     }
     static void updateSalary(InputOutput io) {
-        //TODO
+        long id = io.readLong("Enter employee identity", "Wrong identity", MIN_ID, MAX_ID);
+        int salary = io.readInt("Enter Salary", "Wrong salary", MIN_SALARY, MAX_SALARY);
+        Employee empl = company.updateSalary(id, salary);
+        io.writeLine(empl != null ? "Salary has been updated" : "Employee does not exist");
     }
     static void updateDepartment(InputOutput io) {
-        //TODO
+        long id = io.readLong("Enter employee identity", "Wrong identity", MIN_ID, MAX_ID);
+        String department = io.readString("Enter department " + Arrays.deepToString(DEPARTMENTS), "Wrong department", new HashSet<String>(List.of(DEPARTMENTS)));
+        Employee empl = company.updateDepartment(id, department);
+        io.writeLine(empl != null ? "Department has been updated" : "Employee does not exist");
     }
+
+
 
 }
