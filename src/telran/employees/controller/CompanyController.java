@@ -65,7 +65,7 @@ public class CompanyController {
     }
     static void getEmployees(InputOutput io) {
         List<Employee> employees = company.getEmployees();
-        employees.forEach(System.out::println);
+        employees.forEach(e -> io.writeObjectLine(e));
     }
     static void getDepartmentSalaryDistribution(InputOutput io) {
         List<DepartmentSalary> sd = company.getDepartmentSalaryDistribution();
