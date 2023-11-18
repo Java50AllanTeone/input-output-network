@@ -17,7 +17,7 @@ public interface Company {
             try (ObjectInputStream stream = new ObjectInputStream(new FileInputStream(dataFile))) {
                 List<Employee> employeesRestore = (List<Employee>) stream.readObject();
                 employeesRestore.forEach(e -> addEmployee(e));
-            }catch(Exception e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e.toString());
             }
         }
