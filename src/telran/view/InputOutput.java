@@ -82,7 +82,7 @@ public interface InputOutput {
     }
 
     default void writeObjectLine(Object object) {
-        writeLine(object + "\n");
+        writeLine(object.toString());
     }
 
 
