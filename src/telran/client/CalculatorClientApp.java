@@ -11,7 +11,6 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class CalculatorClientApp {
@@ -40,25 +39,6 @@ public class CalculatorClientApp {
         menu.perform(io);
     }
 
-//    private static Item[] getItems(String type, InputOutput io) {
-//        return switch (type) {
-//            case "CalcArith" -> new Item[] {
-//                    Item.of("Add", e -> runProtocol(type, "+", io)),
-//                    Item.of("Subtract", e -> runProtocol(type, "-", io)),
-//                    Item.of("Multiply", e -> runProtocol(type, "*", io)),
-//                    Item.of("Divide", e -> runProtocol(type, "/", io)),
-//                    Item.exit()
-//            };
-//            case "CalcDate" -> new Item[] {
-//                    Item.of("Plus days", e -> runProtocol(type, "plusDate", io)),
-//                    Item.of("Minus days", e -> runProtocol(type, "minusDate", io)),
-//                    Item.of("Between", e -> runProtocol(type, "between", io)),
-//                    Item.exit()
-//            };
-//            default -> null;
-//        };
-//    }
-
 
     private static Item[] getItems(Map<String, String> ops, InputOutput io) {
         ArrayList<Item> items = new ArrayList<>();
@@ -67,25 +47,6 @@ public class CalculatorClientApp {
 
         return items.toArray(Item[]::new);
     }
-
-
-//    private static void runProtocol(String type, String operation, InputOutput io) {
-//        String op1 = switch (type) {
-//            case "CalcArith" -> io.readInt("Enter first number", "Wrong number") + "";
-//            default -> io.readIsoDate("Enter first Date", "Wrong Date").toString();
-//        };
-//
-//        String op2 = switch (operation) {
-//            case "between" -> io.readIsoDate("Enter second Date", "Wrong Date").toString();
-//            default -> io.readInt("Enter second number", "Wrong number") + "";
-//        };
-//        writer.printf("%s#%s#%s\n", operation, op1, op2);
-//
-//        try {
-//            io.writeLine(reader.readLine());
-//        } catch (Exception e) {
-//        }
-//    }
 
     private static void runProtocol(String operation, InputOutput io) {
         String op1;
