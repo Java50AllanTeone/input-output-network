@@ -31,6 +31,7 @@ public class CalculatorServerApp {
 
                 if (request == null) {
                     System.out.println("connection closed");
+                    socket.close();
                     return;
                 } else {
                     String response = getResponse(request);
