@@ -56,7 +56,6 @@ public class CalculatorServerApp {
     }
 
     private static String getResponse(String[] tokens) {
-        System.out.println(Arrays.toString(tokens));
         return switch (tokens[0]) {
             case "+" -> Integer.parseInt(tokens[1]) + Integer.parseInt(tokens[2]) + "";
             case "-" -> Integer.parseInt(tokens[1]) - Integer.parseInt(tokens[2]) + "";
