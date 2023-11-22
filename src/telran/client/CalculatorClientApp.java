@@ -4,7 +4,6 @@ import telran.view.InputOutput;
 import telran.view.Item;
 import telran.view.Menu;
 import telran.view.SystemInputOutput;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
