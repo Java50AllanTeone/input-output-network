@@ -33,7 +33,7 @@ public class CalculatorClientApp {
         Menu menu = new Menu("Calculator",
                 new Menu("CalcArith", getItems(arithOps, io)),
                 new Menu("CalcDate", getItems(dateOps, io)),
-                Item.of("Exit", e -> closeProtocol(socket)));
+                Item.of("Exit", e -> closeProtocol(socket), true));
 
         menu.perform(io);
     }
