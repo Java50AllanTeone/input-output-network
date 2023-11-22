@@ -57,10 +57,10 @@ public class CalculatorServerApp {
 
     private static String getResponse(String[] tokens) {
         return switch (tokens[0]) {
-            case "+" -> Integer.parseInt(tokens[1]) + Integer.parseInt(tokens[2]) + "";
-            case "-" -> Integer.parseInt(tokens[1]) - Integer.parseInt(tokens[2]) + "";
-            case "*" -> Integer.parseInt(tokens[1]) * Integer.parseInt(tokens[2]) + "";
-            case "/" -> Integer.parseInt(tokens[1]) / Integer.parseInt(tokens[2]) + "";
+            case "+" -> Double.parseDouble(tokens[1]) + Double.parseDouble(tokens[2]) + "";
+            case "-" -> Double.parseDouble(tokens[1]) - Double.parseDouble(tokens[2]) + "";
+            case "*" -> Double.parseDouble(tokens[1]) * Double.parseDouble(tokens[2]) + "";
+            case "/" -> Double.parseDouble(tokens[1]) / Double.parseDouble(tokens[2]) + "";
             case "between" -> ChronoUnit.DAYS.between(LocalDate.parse(tokens[2]), LocalDate.parse(tokens[1])) + "";
             case "plusDate" -> LocalDate.parse(tokens[1]).plusDays(Integer.parseInt(tokens[2])) + "";
             case "minusDate" -> LocalDate.parse(tokens[1]).minusDays(Integer.parseInt(tokens[2])) + "";

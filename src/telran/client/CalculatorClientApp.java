@@ -55,10 +55,10 @@ public class CalculatorClientApp {
         if (operation.equals("plusDate") || operation.equals("minusDate") || operation.equals("between"))
             op1 = io.readIsoDate("Enter first date", "Wrong date").toString();
         else
-            op1 = io.readInt("Enter first number", "Wrong number") + "";
+            op1 = io.readDouble("Enter first number", "Wrong number") + "";
 
         op2 = operation.equals("between") ? io.readIsoDate("Enter second date", "Wrong date").toString() :
-                io.readInt("Enter second number", "Wrong number") + "";
+                io.readDouble("Enter second number", "Wrong number") + "";
 
         writer.printf("%s#%s#%s\n", operation, op1, op2);
 
