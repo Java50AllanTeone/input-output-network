@@ -20,7 +20,6 @@ public class TcpClientServer implements Runnable {
 
 
 
-
     @Override
     public void run() {
         try {
@@ -28,6 +27,7 @@ public class TcpClientServer implements Runnable {
                Request request = (Request) reader.readObject();
                Response response = protocol.getResponse(request);
                writer.writeObject(response);
+               writer.reset();
            }
         } catch (EOFException e) {
             System.out.println("Client closed connection");
