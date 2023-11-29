@@ -1,4 +1,4 @@
-package telran;
+package telran.net;
 
 import java.io.EOFException;
 import java.io.ObjectInputStream;

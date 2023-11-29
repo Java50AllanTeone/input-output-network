@@ -1,4 +1,4 @@
-package telran;
+package telran.net;
 
 import java.io.*;
 import java.net.Socket;

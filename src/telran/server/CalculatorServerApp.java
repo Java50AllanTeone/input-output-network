@@ -1,7 +1,7 @@
 package telran.server;
 
-import telran.CalculatorProtocol;
-import telran.TcpServer;
+import telran.net.CalculatorProtocol;
+import telran.net.TcpServer;
 
 public class CalculatorServerApp {
     static final int PORT = 5000;

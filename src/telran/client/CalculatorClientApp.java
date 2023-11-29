@@ -1,6 +1,6 @@
 package telran.client;
 
-import telran.TcpClientHandler;
+import telran.net.TcpClientHandler;
 import telran.view.InputOutput;
 import telran.view.Item;
 import telran.view.Menu;
