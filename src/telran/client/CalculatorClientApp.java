@@ -1,14 +1,11 @@
 package telran.client;
 
+import telran.TcpClientHandler;
 import telran.view.InputOutput;
 import telran.view.Item;
 import telran.view.Menu;
 import telran.view.SystemInputOutput;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
-import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -20,20 +17,16 @@ public class CalculatorClientApp {
 
     private static final int PORT = 5000;
     private static final String HOST = "localhost";
-    static BufferedReader reader;
-    static PrintStream writer;
+    private static TcpClientHandler client;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         InputOutput io = new SystemInputOutput();
-        Socket socket = new Socket(HOST, PORT);
-
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        writer = new PrintStream(socket.getOutputStream());
+        client = new TcpClientHandler(HOST, PORT);
 
         Menu menu = new Menu("Calculator",
                 new Menu("CalcArith", getItems(arithOps, io)),
                 new Menu("CalcDate", getItems(dateOps, io)),
-                Item.of("Exit", e -> closeProtocol(socket), true));
+                Item.of("Exit", e -> closeProtocol(client), true));
 
         menu.perform(io);
     }
@@ -59,17 +52,17 @@ public class CalculatorClientApp {
         op2 = operation.equals("between") ? io.readIsoDate("Enter second date", "Wrong date").toString() :
                 io.readDouble("Enter second number", "Wrong number") + "";
 
-        writer.printf("%s#%s#%s%n", operation, op1, op2);
+        String response = client.send(operation, String.format("%s#%s", op1, op2));
 
         try {
-            io.writeLine(reader.readLine());
+            io.writeLine(response);
         } catch (Exception e) {
         }
     }
 
-    static void closeProtocol(Socket socket) {
+    static void closeProtocol(TcpClientHandler client) {
         try {
-            socket.close();
+            client.close();
         } catch (IOException e) {
         }
     }
