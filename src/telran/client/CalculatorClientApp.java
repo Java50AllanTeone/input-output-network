@@ -52,7 +52,7 @@ public class CalculatorClientApp {
         op2 = operation.equals("between") ? io.readIsoDate("Enter second date", "Wrong date").toString() :
                 io.readDouble("Enter second number", "Wrong number") + "";
 
-        String response = client.send(operation, String.format("%s#%s", op1, op2));
+        String response = client.send(operation, String.format("%s#%s", op1, op2)).toString();
 
         try {
             io.writeLine(response);
