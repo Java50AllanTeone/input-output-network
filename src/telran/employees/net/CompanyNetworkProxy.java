@@ -8,48 +8,45 @@ import telran.employees.dto.SalaryDistribution;
 import telran.employees.dto.UpdateSalaryData;
 import telran.employees.service.Company;
 import telran.net.NetworkHandler;
+import telran.net.ServerApi;
 
 public class CompanyNetworkProxy implements Company {
 	private NetworkHandler networkHandler;
-	
+
 	public CompanyNetworkProxy(NetworkHandler networkHandler) {
 		this.networkHandler = networkHandler;
 	}
 
 	@Override
 	public boolean addEmployee(Employee empl) {
-		
-		return networkHandler.send("employee/add", empl);
+		return networkHandler.send(ServerApi.EMPLOYEE_ADD, empl);
 	}
 
 	@Override
 	public Employee removeEmployee(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.EMPLOYEE_REMOVE, id);
 	}
 
 	@Override
 	public Employee getEmployee(long id) {
-		
-		return networkHandler.send("employee/get", id);
+
+		return networkHandler.send(ServerApi.EMPLOYEE_GET, id);
 	}
 
 	@Override
 	public List<Employee> getEmployees() {
-		
-		return networkHandler.send("employees/all", null);
+
+		return networkHandler.send(ServerApi.EMPLOYEES_ALL, null);
 	}
 
 	@Override
 	public List<DepartmentSalary> getDepartmentSalaryDistribution() {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.GET_DEPARTMENT_SALARY_DISTIBUTION, null);
 	}
 
 	@Override
 	public List<SalaryDistribution> getSalaryDistribution(int interval) {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.GET_SALARY_DISTRIBUTION, interval);
 	}
 
 	@Override
@@ -72,8 +69,8 @@ public class CompanyNetworkProxy implements Company {
 
 	@Override
 	public Employee updateSalary(long id, int newSalary) {
-		
-		return networkHandler.send("employee/salary/update", new UpdateSalaryData(id, newSalary));
+
+		return networkHandler.send(ServerApi.EMPLOYEE_SALARY_UPDATE, new UpdateSalaryData(id, newSalary));
 	}
 
 	@Override

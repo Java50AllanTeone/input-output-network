@@ -5,10 +5,7 @@ import java.util.ArrayList;
 
 import telran.employees.dto.*;
 import telran.employees.service.Company;
-import telran.net.ApplProtocol;
-import telran.net.Request;
-import telran.net.Response;
-import telran.net.ResponseCode;
+import telran.net.*;
 
 public class CompanyProtocol implements ApplProtocol {
 	private Company company;
@@ -25,10 +22,13 @@ public class CompanyProtocol implements ApplProtocol {
 		Serializable responseData = 0;
 		try {
 			responseData = switch (requestType) {
-			case "employee/add" -> employee_add(requestData);
-			case "employee/get" -> employee_get(requestData);
-			case "employees/all" -> employees_all(requestData);
-			case "employee/salary/update" -> employee_salary_update(requestData);
+			case ServerApi.EMPLOYEE_ADD -> employee_add(requestData);
+				case ServerApi.EMPLOYEE_GET -> employee_get(requestData);
+				case ServerApi.EMPLOYEES_ALL -> employees_all(requestData);
+				case ServerApi.EMPLOYEE_SALARY_UPDATE -> employee_salary_update(requestData);
+				case ServerApi.EMPLOYEE_REMOVE -> employee_remove(requestData);
+				case ServerApi.GET_DEPARTMENT_SALARY_DISTIBUTION -> employee_dep_sal_distribution(requestData);
+				case ServerApi.GET_SALARY_DISTRIBUTION -> employee_salary_distribution(requestData);
 			default -> 0;
 			};
 			response = responseData == (Integer)0 ? new Response(ResponseCode.WRONG_TYPE, requestType)
@@ -38,6 +38,18 @@ public class CompanyProtocol implements ApplProtocol {
 		}
 
 		return response;
+	}
+
+	private Serializable employee_salary_distribution(Serializable requestData) {
+		return new ArrayList<>(company.getSalaryDistribution((int) requestData));
+	}
+
+	private Serializable employee_dep_sal_distribution(Serializable requestData) {
+		return new ArrayList<>(company.getDepartmentSalaryDistribution());
+	}
+
+	private Serializable employee_remove(Serializable requestData) {
+		return company.removeEmployee((long) requestData);
 	}
 
 	private Serializable employee_salary_update(Serializable requestData) {
