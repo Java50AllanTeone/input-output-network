@@ -2,10 +2,7 @@ package telran.employees.net;
 
 import java.util.List;
 
-import telran.employees.dto.DepartmentSalary;
-import telran.employees.dto.Employee;
-import telran.employees.dto.SalaryDistribution;
-import telran.employees.dto.UpdateSalaryData;
+import telran.employees.dto.*;
 import telran.employees.service.Company;
 import telran.net.NetworkHandler;
 import telran.net.ServerApi;
@@ -51,20 +48,18 @@ public class CompanyNetworkProxy implements Company {
 
 	@Override
 	public List<Employee> getEmployeesByDepartment(String department) {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.GET_EMPLOYEES_BY_DEPARTMENT, department);
 	}
 
 	@Override
 	public List<Employee> getEmployeesBySalary(int salaryFrom, int salaryTo) {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.GET_EMPLOYEES_BY_SALARY, new IntervalData(salaryFrom, salaryTo));
 	}
 
 	@Override
 	public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.GET_EMPLOYEES_BY_AGE, new IntervalData(ageFrom, ageTo));
+
 	}
 
 	@Override
@@ -75,8 +70,8 @@ public class CompanyNetworkProxy implements Company {
 
 	@Override
 	public Employee updateDepartment(long id, String department) {
-		// TODO Auto-generated method stub
-		return null;
+		return networkHandler.send(ServerApi.EMPLOYEE_DEPARTMENT_UPDATE, new UpdateDepartmentData(id, department));
+
 	}
 
 }

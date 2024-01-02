@@ -29,6 +29,10 @@ public class CompanyProtocol implements ApplProtocol {
 				case ServerApi.EMPLOYEE_REMOVE -> employee_remove(requestData);
 				case ServerApi.GET_DEPARTMENT_SALARY_DISTIBUTION -> employee_dep_sal_distribution(requestData);
 				case ServerApi.GET_SALARY_DISTRIBUTION -> employee_salary_distribution(requestData);
+				case ServerApi.GET_EMPLOYEES_BY_DEPARTMENT -> employees_department(requestData);
+				case ServerApi.GET_EMPLOYEES_BY_SALARY -> employees_salary(requestData);
+				case ServerApi.GET_EMPLOYEES_BY_AGE -> employees_age(requestData);
+				case ServerApi.EMPLOYEE_DEPARTMENT_UPDATE -> employee_department_update(requestData);
 			default -> 0;
 			};
 			response = responseData == (Integer)0 ? new Response(ResponseCode.WRONG_TYPE, requestType)
@@ -38,6 +42,26 @@ public class CompanyProtocol implements ApplProtocol {
 		}
 
 		return response;
+	}
+
+	private Serializable employee_department_update(Serializable requestData) {
+		UpdateDepartmentData data = (UpdateDepartmentData) requestData;
+		long id = data.id();
+		String newDepartment = data.newDepartment();
+		return company.updateDepartment(id, newDepartment);
+	}
+
+	private Serializable employees_age(Serializable requestData) {
+		return new ArrayList<>(company.getEmployeesByAge(((IntervalData)requestData).from(), ((IntervalData)requestData).to()));
+
+	}
+
+	private Serializable employees_salary(Serializable requestData) {
+		return new ArrayList<>(company.getEmployeesBySalary(((IntervalData)requestData).from(), ((IntervalData)requestData).to()));
+	}
+
+	private Serializable employees_department(Serializable requestData) {
+		return new ArrayList<>(company.getEmployeesByDepartment(requestData.toString()));
 	}
 
 	private Serializable employee_salary_distribution(Serializable requestData) {
