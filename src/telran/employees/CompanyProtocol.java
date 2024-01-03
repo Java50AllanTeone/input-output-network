@@ -36,7 +36,7 @@ public class CompanyProtocol implements ApplProtocol {
 				case ServerApi.EMPLOYEE_DEPARTMENT_UPDATE -> employee_department_update(requestData);
 			default -> defaultValue;
 			};
-			response = responseData == (Integer)0 ? new Response(ResponseCode.WRONG_TYPE, requestType)
+			response = responseData == defaultValue ? new Response(ResponseCode.WRONG_TYPE, requestType)
 					: new Response(ResponseCode.OK, responseData);
 		} catch (Exception e) {
 			response = new Response(ResponseCode.WRONG_DATA, e.getMessage());
