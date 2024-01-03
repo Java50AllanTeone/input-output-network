@@ -20,6 +20,7 @@ public class CompanyProtocol implements ApplProtocol {
 		String requestType = request.requestType();
 		Response response = null;
 		Serializable responseData = 0;
+		Integer defaultValue = Integer.MAX_VALUE;
 		try {
 			responseData = switch (requestType) {
 			case ServerApi.EMPLOYEE_ADD -> employee_add(requestData);
@@ -33,7 +34,7 @@ public class CompanyProtocol implements ApplProtocol {
 				case ServerApi.GET_EMPLOYEES_BY_SALARY -> employees_salary(requestData);
 				case ServerApi.GET_EMPLOYEES_BY_AGE -> employees_age(requestData);
 				case ServerApi.EMPLOYEE_DEPARTMENT_UPDATE -> employee_department_update(requestData);
-			default -> 0;
+			default -> defaultValue;
 			};
 			response = responseData == (Integer)0 ? new Response(ResponseCode.WRONG_TYPE, requestType)
 					: new Response(ResponseCode.OK, responseData);
