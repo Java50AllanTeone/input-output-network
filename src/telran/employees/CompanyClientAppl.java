@@ -28,8 +28,8 @@ public class CompanyClientAppl {
 					io.writeLine(e.getMessage());
 				}
 			}, true));
-			Menu menu = new Menu("Company Application", items);
-			menu.perform(io);
+			Menu menu = new Menu("Company Application", items );
+			menu .perform(io);
 
 		} catch (Exception e) {
 			io.writeLine(e.getMessage());

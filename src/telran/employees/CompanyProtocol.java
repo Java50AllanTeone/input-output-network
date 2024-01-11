@@ -5,7 +5,10 @@ import java.util.ArrayList;
 
 import telran.employees.dto.*;
 import telran.employees.service.Company;
-import telran.net.*;
+import telran.net.ApplProtocol;
+import telran.net.Request;
+import telran.net.Response;
+import telran.net.ResponseCode;
 
 public class CompanyProtocol implements ApplProtocol {
 	private Company company;
@@ -23,17 +26,18 @@ public class CompanyProtocol implements ApplProtocol {
 		Integer defaultValue = Integer.MAX_VALUE;
 		try {
 			responseData = switch (requestType) {
-			case ServerApi.EMPLOYEE_ADD -> employee_add(requestData);
-				case ServerApi.EMPLOYEE_GET -> employee_get(requestData);
-				case ServerApi.EMPLOYEES_ALL -> employees_all(requestData);
-				case ServerApi.EMPLOYEE_SALARY_UPDATE -> employee_salary_update(requestData);
-				case ServerApi.EMPLOYEE_REMOVE -> employee_remove(requestData);
-				case ServerApi.GET_DEPARTMENT_SALARY_DISTIBUTION -> employee_dep_sal_distribution(requestData);
-				case ServerApi.GET_SALARY_DISTRIBUTION -> employee_salary_distribution(requestData);
-				case ServerApi.GET_EMPLOYEES_BY_DEPARTMENT -> employees_department(requestData);
-				case ServerApi.GET_EMPLOYEES_BY_SALARY -> employees_salary(requestData);
-				case ServerApi.GET_EMPLOYEES_BY_AGE -> employees_age(requestData);
-				case ServerApi.EMPLOYEE_DEPARTMENT_UPDATE -> employee_department_update(requestData);
+			case "employee/add" -> employee_add(requestData);
+			case "employee/get" -> employee_get(requestData);
+			case "employees/all" -> employees_all(requestData);
+			case "employee/salary/update" -> employee_salary_update(requestData);
+			case "employee/remove" -> employee_remove(requestData);
+			case "employees/department/salary/distribution" -> employees_department_salary_distribution(requestData);
+			case "employees/salary/distribution" -> employees_salary_distribution(requestData);
+			case "employees/department/get" -> employees_department_get(requestData);
+			case "employees/salary/get" -> employees_salary_get(requestData);
+			case "employees/age/get" -> employees_age_get(requestData);
+			case "employee/department/update" -> employees_department_update(requestData);
+			
 			default -> defaultValue;
 			};
 			response = responseData == defaultValue ? new Response(ResponseCode.WRONG_TYPE, requestType)
@@ -45,36 +49,39 @@ public class CompanyProtocol implements ApplProtocol {
 		return response;
 	}
 
-	private Serializable employee_department_update(Serializable requestData) {
+	private Serializable employees_department_update(Serializable requestData) {
 		UpdateDepartmentData data = (UpdateDepartmentData) requestData;
-		long id = data.id();
-		String newDepartment = data.newDepartment();
-		return company.updateDepartment(id, newDepartment);
+		return company.updateDepartment(data.id(), data.newDepartment());
 	}
 
-	private Serializable employees_age(Serializable requestData) {
-		return new ArrayList<>(company.getEmployeesByAge(((IntervalData)requestData).from(), ((IntervalData)requestData).to()));
-
+	private Serializable employees_age_get(Serializable requestData) {
+		int[] ages = (int[])requestData;
+		return new ArrayList<>(company.getEmployeesByAge(ages[0], ages[1]));
 	}
 
-	private Serializable employees_salary(Serializable requestData) {
-		return new ArrayList<>(company.getEmployeesBySalary(((IntervalData)requestData).from(), ((IntervalData)requestData).to()));
+	private Serializable employees_salary_get(Serializable requestData) {
+		int[] salaries= (int[])requestData;
+		return new ArrayList<>(company.getEmployeesBySalary(salaries[0], salaries[1]));
 	}
 
-	private Serializable employees_department(Serializable requestData) {
-		return new ArrayList<>(company.getEmployeesByDepartment(requestData.toString()));
+	private Serializable employees_department_get(Serializable requestData) {
+		String department = (String) requestData;
+		return new ArrayList<>(company.getEmployeesByDepartment(department));
 	}
 
-	private Serializable employee_salary_distribution(Serializable requestData) {
-		return new ArrayList<>(company.getSalaryDistribution((int) requestData));
+	private Serializable employees_salary_distribution(Serializable requestData) {
+		int interval = (int) requestData;
+		return new ArrayList<>(company.getSalaryDistribution(interval));
 	}
 
-	private Serializable employee_dep_sal_distribution(Serializable requestData) {
+	private Serializable employees_department_salary_distribution(Serializable requestData) {
+		
 		return new ArrayList<>(company.getDepartmentSalaryDistribution());
 	}
 
 	private Serializable employee_remove(Serializable requestData) {
-		return company.removeEmployee((long) requestData);
+		long id = (long) requestData;
+		return company.removeEmployee(id);
 	}
 
 	private Serializable employee_salary_update(Serializable requestData) {

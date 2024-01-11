@@ -3,8 +3,7 @@ package telran.employees.service;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.concurrent.locks.*;
 import java.util.stream.Collectors;
 
 import telran.employees.dto.DepartmentSalary;
@@ -12,19 +11,18 @@ import telran.employees.dto.Employee;
 import telran.employees.dto.SalaryDistribution;
 
 public class CompanyImpl implements Company {
-	ReentrantReadWriteLock lock = new ReentrantReadWriteLock(true);
-	Lock readLock = lock.readLock();
-	Lock writeLock = lock.writeLock();
 	HashMap<Long, Employee> employees = new HashMap<>(); //most effective structure for the interface methods
 	TreeMap<LocalDate, List<Employee>> employeesDate = new TreeMap<>();
 	TreeMap<Integer, List<Employee>> employeesSalary = new TreeMap<>();
 	HashMap<String, List<Employee>> employeesDepartment = new HashMap<>();
-
+	ReentrantReadWriteLock readWriteLock = new ReentrantReadWriteLock();
+	Lock readLock = readWriteLock.readLock();
+	Lock writeLock = readWriteLock.writeLock();
 	@Override
 	public boolean addEmployee(Employee empl) {
+		
 		try {
 			writeLock.lock();
-
 			boolean res = employees.putIfAbsent(empl.id(), empl) == null;
 			if (res) {
 				LocalDate date = empl.birthDate();
@@ -48,9 +46,8 @@ public class CompanyImpl implements Company {
 	public Employee removeEmployee(long id) {
 		try {
 			writeLock.lock();
-
 			Employee empl = employees.remove(id);
-			if(empl != null) {
+			if (empl != null) {
 				LocalDate date = empl.birthDate();
 				Integer salary = empl.salary();
 				String department = empl.department();
@@ -75,6 +72,7 @@ public class CompanyImpl implements Company {
 
 	@Override
 	public Employee getEmployee(long id) {
+		
 		try {
 			readLock.lock();
 			return employees.get(id);
@@ -112,9 +110,9 @@ public class CompanyImpl implements Company {
 			Map<Integer, Long> mapIntervalNumbers = employees.values().stream()
 					.collect(Collectors.groupingBy(e -> e.salary() / interval, Collectors.counting()));
 			return mapIntervalNumbers.entrySet().stream()
-					.map(e -> new SalaryDistribution(e.getKey() * interval, e.getKey() * interval + interval, e.getValue().intValue()))
+					.map(e -> new SalaryDistribution(e.getKey() * interval, e.getKey() * interval + interval,
+							e.getValue().intValue()))
 					.sorted((sd1, sd2) -> Integer.compare(sd1.min(), sd2.min())).toList();
-
 		} finally {
 			readLock.unlock();
 		}
@@ -139,8 +137,7 @@ public class CompanyImpl implements Company {
 	public List<Employee> getEmployeesBySalary(int salaryFrom, int salaryTo) {
 		try {
 			readLock.lock();
-			return employeesSalary.subMap(salaryFrom,  salaryTo).values().stream()
-					.flatMap(col -> col.stream())
+			return employeesSalary.subMap(salaryFrom, salaryTo).values().stream().flatMap(col -> col.stream())
 					.toList();
 		} finally {
 			readLock.unlock();
@@ -149,6 +146,7 @@ public class CompanyImpl implements Company {
 
 	@Override
 	public List<Employee> getEmployeesByAge(int ageFrom, int ageTo) {
+		
 		try {
 			readLock.lock();
 			LocalDate dateFrom = getDate(ageTo);
@@ -161,19 +159,20 @@ public class CompanyImpl implements Company {
 
 	private LocalDate getDate(int age) {
 		LocalDate currentDate = LocalDate.now();
-
+		
 		return currentDate.minusYears(age);
 	}
 
+	
+	
 
 	@Override
 	public Employee updateSalary(long id, int newSalary) {
 		try {
 			writeLock.lock();
 			Employee empl = removeEmployee(id);
-			if(empl != null) {
-				Employee newEmployee = new Employee(id, empl.name(),
-						empl.department(), newSalary, empl.birthDate());
+			if (empl != null) {
+				Employee newEmployee = new Employee(id, empl.name(), empl.department(), newSalary, empl.birthDate());
 				addEmployee(newEmployee);
 			}
 			return empl;
@@ -187,9 +186,8 @@ public class CompanyImpl implements Company {
 		try {
 			writeLock.lock();
 			Employee empl = removeEmployee(id);
-			if(empl != null) {
-				Employee newEmployee = new Employee(id, empl.name(),
-						department, empl.salary(), empl.birthDate());
+			if (empl != null) {
+				Employee newEmployee = new Employee(id, empl.name(), department, empl.salary(), empl.birthDate());
 				addEmployee(newEmployee);
 			}
 			return empl;
