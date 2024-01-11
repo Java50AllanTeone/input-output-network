@@ -1,7 +1,9 @@
 package telran.employees;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import telran.employees.dto.*;
 import telran.employees.service.Company;
@@ -24,28 +26,14 @@ public class CompanyProtocol implements ApplProtocol {
 		Response response = null;
 		Serializable responseData = 0;
 		Integer defaultValue = Integer.MAX_VALUE;
-		try {
-			responseData = switch (requestType) {
-			case "employee/add" -> employee_add(requestData);
-			case "employee/get" -> employee_get(requestData);
-			case "employees/all" -> employees_all(requestData);
-			case "employee/salary/update" -> employee_salary_update(requestData);
-			case "employee/remove" -> employee_remove(requestData);
-			case "employees/department/salary/distribution" -> employees_department_salary_distribution(requestData);
-			case "employees/salary/distribution" -> employees_salary_distribution(requestData);
-			case "employees/department/get" -> employees_department_get(requestData);
-			case "employees/salary/get" -> employees_salary_get(requestData);
-			case "employees/age/get" -> employees_age_get(requestData);
-			case "employee/department/update" -> employees_department_update(requestData);
-			
-			default -> defaultValue;
-			};
-			response = responseData == defaultValue ? new Response(ResponseCode.WRONG_TYPE, requestType)
-					: new Response(ResponseCode.OK, responseData);
-		} catch (Exception e) {
-			response = new Response(ResponseCode.WRONG_DATA, e.getMessage());
-		}
 
+		try {
+			responseData = (Serializable) getMethod(requestType).invoke(this, requestData);
+			response = new Response(ResponseCode.OK, responseData);
+		} catch (NoSuchMethodException e) {
+			response = new Response(ResponseCode.WRONG_TYPE, requestType);
+		} catch (Exception e) {response = new Response(ResponseCode.WRONG_DATA, e.getMessage());
+		}
 		return response;
 	}
 
@@ -75,7 +63,7 @@ public class CompanyProtocol implements ApplProtocol {
 	}
 
 	private Serializable employees_department_salary_distribution(Serializable requestData) {
-		
+
 		return new ArrayList<>(company.getDepartmentSalaryDistribution());
 	}
 
@@ -92,7 +80,7 @@ public class CompanyProtocol implements ApplProtocol {
 	}
 
 	private Serializable employees_all(Serializable requestData) {
-		
+
 		return new ArrayList<>(company.getEmployees());
 	}
 
@@ -104,6 +92,20 @@ public class CompanyProtocol implements ApplProtocol {
 	private Serializable employee_add(Serializable requestData) {
 		Employee empl = (Employee) requestData;
 		return company.addEmployee(empl);
+	}
+
+
+//	int value = Integer.parseInt(args[1]);
+//				Method method = Test.class.getDeclaredMethod(args[0], int.class);
+//				Test test = new Test();
+//				method.setAccessible(true);
+//				method.invoke(test, value);
+
+	private static Method getMethod(String requestType) throws NoSuchMethodException {
+		String[] arg = requestType.split("/");
+		String mName = String.join("_", arg);
+		Method method = CompanyProtocol.class.getDeclaredMethod(mName, Serializable.class);
+		return method;
 	}
 
 }
