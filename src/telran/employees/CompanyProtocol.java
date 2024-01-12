@@ -32,7 +32,8 @@ public class CompanyProtocol implements ApplProtocol {
 			response = new Response(ResponseCode.OK, responseData);
 		} catch (NoSuchMethodException e) {
 			response = new Response(ResponseCode.WRONG_TYPE, requestType);
-		} catch (Exception e) {response = new Response(ResponseCode.WRONG_DATA, e.getMessage());
+		} catch (Exception e) {
+			response = new Response(ResponseCode.WRONG_DATA, e.getMessage());
 		}
 		return response;
 	}
