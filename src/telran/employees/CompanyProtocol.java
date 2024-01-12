@@ -25,7 +25,6 @@ public class CompanyProtocol implements ApplProtocol {
 		String requestType = request.requestType();
 		Response response = null;
 		Serializable responseData = 0;
-		Integer defaultValue = Integer.MAX_VALUE;
 
 		try {
 			responseData = (Serializable) getMethod(requestType).invoke(this, requestData);
